@@ -4,7 +4,7 @@ import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitCo
 const scene = new THREE.Scene()
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 10
+camera.position.y = 200
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -59,13 +59,13 @@ particleSystem3.position.y += 10
 particleSystem3.position.x += 20
 particleSystem4.position.x += 10
 
-const groupP1 = new Group
-groupP1.add(particleSystem1)
-groupP1.add(particleSystem2)
-groupP1.add(particleSystem3)
-groupP1.add(particleSystem4)
+const groupP = new Group
+groupP.add(particleSystem1)
+groupP.add(particleSystem2)
+groupP.add(particleSystem3)
+groupP.add(particleSystem4)
 
-scene.add(groupP1)
+scene.add(groupP)
 
 // controle orbital da camera
 const controls =  new OrbitControls(camera, renderer.domElement)
@@ -74,36 +74,21 @@ const controls =  new OrbitControls(camera, renderer.domElement)
 
 
 
-const velocityofpart = 0.1
+const velocityofpart = 0.5
 function animate() 
 {
   requestAnimationFrame(animate);
 
-  particles1.vertices.forEach(function (particle) {
-    cubicpositions(particle, 5, 25, 5, velocityofpart)
-  });
-  particleSystem1.geometry.verticesNeedUpdate = true;  
-
-  particles2.vertices.forEach(function (particle) {
-    cubicpositions(particle, 15, 5, 5, velocityofpart)
-  });
-  particleSystem2.geometry.verticesNeedUpdate = true;  
-
-  particles3.vertices.forEach(function (particle) {
-    cubicpositions(particle, 5, 15, 5, velocityofpart)
-  });
-  particleSystem3.geometry.verticesNeedUpdate = true;  
-
-  particles4.vertices.forEach(function (particle) {
-    cubicpositions(particle, 15, 5, 5, velocityofpart)
-  });
-  particleSystem4.geometry.verticesNeedUpdate = true;  
+  animateletterformation(particles1, particleSystem1, particles1.particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles2, particleSystem2, particles2.particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles3, particleSystem3, particles3.particle, 5, 15, 5, velocityofpart)
+  animateletterformation(particles4, particleSystem4, particles4.particle, 15, 5, 5, velocityofpart)
   
-  /*
+  
   groupP.position.x += Math.cos(Math.PI) + groupP.position.z/100
   groupP.position.z += Math.sin(Math.PI) - groupP.position.x/100
   groupP.rotation.y += 0.1
-  */
+  
   
 
   controls.update()
@@ -160,15 +145,16 @@ function cubicpositions(particle, finalpositionx, finalpositiony, finalpositionz
 }
 
 /*
-function torusparticles(particle)
-{
-    const minR = 0.5
-    const maxR = 2
-    const theta = Math.random()*2*Math.PI
-    const R = 2
-
-    particle.y = R*Math.sin(theta)
-    particle.z = (Math.random() - 0.5)*2
-    particle.x = R*Math.cos(theta)
+particles1.vertices.forEach(function (particle) {
+    cubicpositions(particle, 5, 25, 5, velocityofpart)
+  });
+  particleSystem1.geometry.verticesNeedUpdate = true;
 }
 */
+function animateletterformation(particles, particleSystem, p, X, Y, Z, V)
+{
+  particles.vertices.forEach(function (p) {
+    cubicpositions(p, X, Y, Z, V)
+  });
+  particleSystem.geometry.verticesNeedUpdate = true;
+}
