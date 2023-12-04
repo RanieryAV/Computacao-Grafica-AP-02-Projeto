@@ -8,15 +8,15 @@ import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitCo
 const scene = new THREE.Scene()
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.y = 200
+camera.position.z = 10
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// ------------------------------------ criação das particulas (P) ------------------------------------ //
+// ------------------------------------ criação das particulas do primeiro (P) ------------------------------------ //
 
-const quantipart = 500
+const quantipart = 1500
 const sizeofpart = 0.5
 
 const particles1 = new THREE.Geometry()
@@ -72,6 +72,54 @@ groupP.add(particleSystem3)
 groupP.add(particleSystem4)
 scene.add(groupP)
 
+// ------------------------------------ criação das particulas do segundo (P) ------------------------------------ //
+const particles5 = new THREE.Geometry() // Cria a coluna vertical do P
+randomparticles(quantipart, 200, 200, 200, particles5)
+const particleMaterial5 = new THREE.PointsMaterial
+({
+  color: 0xFF0000, 
+  size: sizeofpart 
+});
+const particleSystem5 = new THREE.Points(particles5, particleMaterial5);
+const particles6 = new THREE.Geometry()
+randomparticles(quantipart, 200, 200, 200, particles6)
+const particleMaterial6 = new THREE.PointsMaterial
+({
+  color: 0x00FF00, 
+  size: sizeofpart 
+});
+const particleSystem6 = new THREE.Points(particles6, particleMaterial6);
+const particles7 = new THREE.Geometry()
+randomparticles(quantipart, 200, 200, 200, particles7)
+const particleMaterial7 = new THREE.PointsMaterial
+({
+  color: 0x0000FF, 
+  size: sizeofpart 
+});
+const particleSystem7 = new THREE.Points(particles7, particleMaterial7);
+
+const particles8 = new THREE.Geometry()
+randomparticles(quantipart, 200, 200, 200, particles8)
+const particleMaterial8 = new THREE.PointsMaterial
+({
+  color: 0xFFFFFF, 
+  size: sizeofpart 
+});
+const particleSystem8 = new THREE.Points(particles8, particleMaterial8);
+// ------------------------------------ Altera posição das particulas para formar o P ------------------------------------ //
+particleSystem5.position.x += 40
+particleSystem6.position.y += 20
+particleSystem6.position.x += 50
+particleSystem7.position.y += 10
+particleSystem7.position.x += 60
+particleSystem8.position.x += 50
+// ------------------------------------ Adiciona os sistemas a um grupo único ------------------------------------ //
+const groupP2 = new Group
+groupP2.add(particleSystem5)
+groupP2.add(particleSystem6)
+groupP2.add(particleSystem7)
+groupP2.add(particleSystem8)
+scene.add(groupP2)
 // ------------------------------------ controle orbital da camera ------------------------------------ //
 
 const controls =  new OrbitControls(camera, renderer.domElement)
@@ -90,12 +138,16 @@ function animate()
   animateletterformation(particles3, particleSystem3, particles3.particle, 5, 15, 5, velocityofpart)
   animateletterformation(particles4, particleSystem4, particles4.particle, 15, 5, 5, velocityofpart)
   
+  animateletterformation(particles5, particleSystem5, particles5.particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles6, particleSystem6, particles6.particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles7, particleSystem7, particles7.particle, 5, 15, 5, velocityofpart)
+  animateletterformation(particles8, particleSystem8, particles8.particle, 15, 5, 5, velocityofpart)
   // translação e rotação do grupo todo
   
-  groupP.position.x += Math.cos(Math.PI) + groupP.position.z/100
-  groupP.position.z += Math.sin(Math.PI) - groupP.position.x/100
+  //groupP.position.x += Math.cos(Math.PI) + groupP.position.z/100
+  //groupP.position.z += Math.sin(Math.PI) - groupP.position.x/100
   
-  groupP.rotation.y += 0.1
+  //groupP.rotation.y += 0.1
   
   
   // atualiza a cena e o controle de camera a cada frame
