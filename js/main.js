@@ -8,7 +8,9 @@ import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitCo
 const scene = new THREE.Scene()
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.x = 200
 camera.position.y = 200
+camera.position.z = 200
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -18,59 +20,111 @@ document.body.appendChild(renderer.domElement);
 
 const quantipart = 500
 const sizeofpart = 0.5
+const particles = []
+const particleSystem = []
 
-const particles1 = new THREE.Geometry()
-randomparticles(quantipart, 200, 200, 200, particles1)
-const particleMaterial1 = new THREE.PointsMaterial
-({
-  color: 0xFF0000, 
-  size: sizeofpart 
-});
-const particleSystem1 = new THREE.Points(particles1, particleMaterial1);
+for (let i = 0; i < 24; i++)
+{
+  particles[i] = randomparticles(quantipart, 200, 200, 200)
+  const particleMaterial = new THREE.PointsMaterial
+  ({
+    color: 0xFFFFFF, 
+    size: sizeofpart 
+  });
+  particleSystem[i] = new THREE.Points(particles[i], particleMaterial);
+}
 
-const particles2 = new THREE.Geometry()
-randomparticles(quantipart, 200, 200, 200, particles2)
-const particleMaterial2 = new THREE.PointsMaterial
-({
-  color: 0x00FF00, 
-  size: sizeofpart 
-});
-const particleSystem2 = new THREE.Points(particles2, particleMaterial2);
+// ------------------------------------ Altera posição das particulas para formar as letras ------------------------------------ //
 
-const particles3 = new THREE.Geometry()
-randomparticles(quantipart, 200, 200, 200, particles3)
-const particleMaterial3 = new THREE.PointsMaterial
-({
-  color: 0x0000FF, 
-  size: sizeofpart 
-});
-const particleSystem3 = new THREE.Points(particles3, particleMaterial3);
+particleSystem[0].position.y += 0
+particleSystem[1].position.y += 20
+particleSystem[1].position.x += 10
+particleSystem[2].position.y += 10
+particleSystem[2].position.x += 20
+particleSystem[3].position.x += 10
 
-const particles4 = new THREE.Geometry()
-randomparticles(quantipart, 200, 200, 200, particles4)
-const particleMaterial4 = new THREE.PointsMaterial
-({
-  color: 0xFFFFFF, 
-  size: sizeofpart 
-});
-const particleSystem4 = new THREE.Points(particles4, particleMaterial4);
+const groupP1 = new Group
+groupP1.add(particleSystem[0])
+groupP1.add(particleSystem[1])
+groupP1.add(particleSystem[2])
+groupP1.add(particleSystem[3])
 
-// ------------------------------------ Altera posição das particulas para formar o P ------------------------------------ //
+particleSystem[4].position.x += 40
+particleSystem[5].position.y += 20
+particleSystem[5].position.x += 50
+particleSystem[6].position.y += 10
+particleSystem[6].position.x += 60
+particleSystem[7].position.x += 50
 
-particleSystem2.position.y += 20
-particleSystem2.position.x += 10
-particleSystem3.position.y += 10
-particleSystem3.position.x += 20
-particleSystem4.position.x += 10
+const groupP2 = new Group
+groupP2.add(particleSystem[4])
+groupP2.add(particleSystem[5])
+groupP2.add(particleSystem[6])
+groupP2.add(particleSystem[7])
+
+particleSystem[8].position.x += 80
+particleSystem[9].position.y += 20
+particleSystem[9].position.x += 90
+particleSystem[10].position.y += -10
+particleSystem[10].position.x += 100
+particleSystem[11].position.x += 90
+particleSystem[11].position.y += -20
+particleSystem[12].position.x += 95
+
+const groupG = new Group
+groupG.add(particleSystem[8])
+groupG.add(particleSystem[9])
+groupG.add(particleSystem[10])
+groupG.add(particleSystem[11])
+groupG.add(particleSystem[12])
+
+particleSystem[13].position.x += 120
+particleSystem[14].position.y += 20
+particleSystem[14].position.x += 130
+particleSystem[15].position.y += -20
+particleSystem[15].position.x += 130
+particleSystem[16].position.x += 130
+
+const groupE1 = new Group
+groupE1.add(particleSystem[13])
+groupE1.add(particleSystem[14])
+groupE1.add(particleSystem[15])
+groupE1.add(particleSystem[16])
+
+particleSystem[17].position.x += 160
+particleSystem[18].position.y += 20
+particleSystem[18].position.x += 170
+particleSystem[19].position.y += -20
+particleSystem[19].position.x += 170
+particleSystem[20].position.x += 170
+
+const groupE2 = new Group
+groupE2.add(particleSystem[17])
+groupE2.add(particleSystem[18])
+groupE2.add(particleSystem[19])
+groupE2.add(particleSystem[20])
+
+particleSystem[21].position.x += 200
+particleSystem[22].position.y += 20
+particleSystem[22].position.x += 210
+particleSystem[23].position.y += -20
+particleSystem[23].position.x += 210
+
+const groupC = new Group
+groupC.add(particleSystem[21])
+groupC.add(particleSystem[22])
+groupC.add(particleSystem[23])
 
 // ------------------------------------ Adiciona os sistemas a um grupo único ------------------------------------ //
 
-const groupP = new Group
-groupP.add(particleSystem1)
-groupP.add(particleSystem2)
-groupP.add(particleSystem3)
-groupP.add(particleSystem4)
-scene.add(groupP)
+const SIGLA = new Group
+SIGLA.add(groupP1)
+SIGLA.add(groupP2)
+SIGLA.add(groupG)
+SIGLA.add(groupE1)
+SIGLA.add(groupE2)
+SIGLA.add(groupC)
+scene.add(SIGLA)
 
 // ------------------------------------ controle orbital da camera ------------------------------------ //
 
@@ -78,24 +132,52 @@ const controls =  new OrbitControls(camera, renderer.domElement)
 
 // ------------------------------------ Animação ------------------------------------ //
 
-const velocityofpart = 0.5
+const velocityofpart = 0.1
 function animate() 
 {
   requestAnimationFrame(animate);
 
   // As particulas de cada sistema vão para determinadas posições e formam diferentes formas cubicas
+  
+  animateletterformation(particles[0], particleSystem[0], particles[0].particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles[1], particleSystem[1], particles[1].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[2], particleSystem[2], particles[2].particle, 5, 15, 5, velocityofpart)
+  animateletterformation(particles[3], particleSystem[3], particles[3].particle, 15, 5, 5, velocityofpart)
 
-  animateletterformation(particles1, particleSystem1, particles1.particle, 5, 25, 5, velocityofpart)
-  animateletterformation(particles2, particleSystem2, particles2.particle, 15, 5, 5, velocityofpart)
-  animateletterformation(particles3, particleSystem3, particles3.particle, 5, 15, 5, velocityofpart)
-  animateletterformation(particles4, particleSystem4, particles4.particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[4], particleSystem[4], particles[4].particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles[5], particleSystem[5], particles[5].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[6], particleSystem[6], particles[6].particle, 5, 15, 5, velocityofpart)
+  animateletterformation(particles[7], particleSystem[7], particles[7].particle, 15, 5, 5, velocityofpart)
+
+  animateletterformation(particles[8], particleSystem[8], particles[8].particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles[9], particleSystem[9], particles[9].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[10], particleSystem[10], particles[10].particle, 5, 15, 5, velocityofpart)
+  animateletterformation(particles[11], particleSystem[11], particles[11].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[12], particleSystem[12], particles[12].particle, 10, 5, 5, velocityofpart)
+
+  animateletterformation(particles[13], particleSystem[13], particles[13].particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles[14], particleSystem[14], particles[14].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[15], particleSystem[15], particles[15].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[16], particleSystem[16], particles[16].particle, 15, 5, 5, velocityofpart)
+  
+  animateletterformation(particles[17], particleSystem[17], particles[17].particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles[18], particleSystem[18], particles[18].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[19], particleSystem[19], particles[19].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[20], particleSystem[20], particles[20].particle, 15, 5, 5, velocityofpart)
+
+  animateletterformation(particles[21], particleSystem[21], particles[21].particle, 5, 25, 5, velocityofpart)
+  animateletterformation(particles[22], particleSystem[22], particles[22].particle, 15, 5, 5, velocityofpart)
+  animateletterformation(particles[23], particleSystem[23], particles[23].particle, 15, 5, 5, velocityofpart)
+
   
   // translação e rotação do grupo todo
   
-  groupP.position.x += Math.cos(Math.PI) + groupP.position.z/100
-  groupP.position.z += Math.sin(Math.PI) - groupP.position.x/100
+  /*
+  SIGLA.position.x += Math.cos(Math.PI) + SIGLA.position.z/100
+  SIGLA.position.z += Math.sin(Math.PI) - SIGLA.position.x/100
   
-  groupP.rotation.y += 0.1
+  SIGLA.rotation.y += 0.1
+  */
   
   
   // atualiza a cena e o controle de camera a cada frame
@@ -109,18 +191,19 @@ animate();
 
 // -------------------------------------------- Funções -------------------------------------------- //
 
-function randomparticles(count, incrementx, incrementy, incrementz, Pgeometry)
+function randomparticles(count, incrementx, incrementy, incrementz)
 {
   // Cria as particulas em posições aleatórias e as manda para a geometria determinada
-
+  const Pgeometry = new THREE.Geometry()
   for (let i = 0; i < count; i++) 
   {
     const x = (Math.random() - 0.5) * incrementx; 
     const y = (Math.random() - 0.5) * incrementy;  
     const z = (Math.random() - 0.5) * incrementz;  
-    const particle = new THREE.Vector3(x, y, z); z
+    const particle = new THREE.Vector3(x, y, z);
     Pgeometry.vertices.push(particle);
   }
+  return Pgeometry
 }
 
 
@@ -167,3 +250,5 @@ function animateletterformation(particles, particleSystem, p, X, Y, Z, V)
   });
   particleSystem.geometry.verticesNeedUpdate = true;
 }
+
+
