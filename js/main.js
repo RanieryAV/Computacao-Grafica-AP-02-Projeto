@@ -1,5 +1,23 @@
+// ------------------------------------------ SLIDER ------------------------------------------ //
+
 const particleSlider = document.getElementById('particleSlider');
 const particleCountDisplay = document.getElementById('particleCount');
+
+// ------------------------------------------ TEXTURAS ------------------------------------------ //
+
+const LettersTexture = [4]
+LettersTexture[0] = new THREE.TextureLoader().load('/Letters/LetterP.png')
+LettersTexture[1] = new THREE.TextureLoader().load('/Letters/LetterG.png')
+LettersTexture[2] = new THREE.TextureLoader().load('/Letters/LetterE.png')
+LettersTexture[3] = new THREE.TextureLoader().load('/Letters/LetterC.png')
+
+for(let i = 0; i < 4; i++)
+{
+  //deixa elas sem interpolação/borragem
+
+  LettersTexture[i].magFilter = THREE.NearestFilter
+  LettersTexture[i].minFilter = THREE.NearestFilter
+}
 
 // ------------------------------------------ Importação ------------------------------------------ //
 
@@ -22,42 +40,46 @@ document.body.appendChild(renderer.domElement);
 // ------------------------------------ criação das particulas (P) ------------------------------------ //
 
 const quantipart = 500
-const sizeofpart = 0.5
+const sizeofpart = 2
 const particles = []
 const particleSystem = []
+const particleMaterial = []
+const COLOR = new THREE.Color("rgb(255, 255, 255)")
 
 for (let i = 0; i < 24; i++)
 {
   particles[i] = randomparticles(quantipart, 200, 200, 200)
-  const particleMaterial = new THREE.PointsMaterial
+  particleMaterial[i] = new THREE.PointsMaterial
   ({
-    color: 0xFFFFFF, 
-    size: sizeofpart 
+    color: COLOR, 
+    size: sizeofpart,
+    alphaTest: 0.5
   });
-  particleSystem[i] = new THREE.Points(particles[i], particleMaterial);
+  particleSystem[i] = new THREE.Points(particles[i], particleMaterial[i]);
 }
 
 // ------------------------------------ Altera posição das particulas para formar as letras ------------------------------------ //
 
-particleSystem[0].position.y += 0
-particleSystem[1].position.y += 20
-particleSystem[1].position.x += 10
-particleSystem[2].position.y += 10
-particleSystem[2].position.x += 20
-particleSystem[3].position.x += 10
+changetexture(0, 8, LettersTexture[0])
+changetexture(8, 13, LettersTexture[1])
+changetexture(13, 21, LettersTexture[2])
+changetexture(21, 24, LettersTexture[3])
+
+for (let i = 0; i < 2; i++)
+{
+particleSystem[(4*i)].position.x += 0 + (40*i)
+particleSystem[(4*i)+1].position.y += 20 
+particleSystem[(4*i)+1].position.x += 10 + (40*i)
+particleSystem[(4*i)+2].position.y += 10
+particleSystem[(4*i)+2].position.x += 20 + (40*i)
+particleSystem[(4*i)+3].position.x += 10 + (40*i)
+}
 
 const groupP1 = new Group
 groupP1.add(particleSystem[0])
 groupP1.add(particleSystem[1])
 groupP1.add(particleSystem[2])
 groupP1.add(particleSystem[3])
-
-particleSystem[4].position.x += 40
-particleSystem[5].position.y += 20
-particleSystem[5].position.x += 50
-particleSystem[6].position.y += 10
-particleSystem[6].position.x += 60
-particleSystem[7].position.x += 50
 
 const groupP2 = new Group
 groupP2.add(particleSystem[4])
@@ -81,25 +103,21 @@ groupG.add(particleSystem[10])
 groupG.add(particleSystem[11])
 groupG.add(particleSystem[12])
 
-particleSystem[13].position.x += 120
-particleSystem[14].position.y += 20
-particleSystem[14].position.x += 130
-particleSystem[15].position.y += -20
-particleSystem[15].position.x += 130
-particleSystem[16].position.x += 130
+for (let i = 0; i < 2; i++)
+{
+particleSystem[(4*i)+13].position.x += 120 + (40*i)
+particleSystem[(4*i)+14].position.y += 20 
+particleSystem[(4*i)+14].position.x += 130 + (40*i)
+particleSystem[(4*i)+15].position.y += -20
+particleSystem[(4*i)+15].position.x += 130 + (40*i)
+particleSystem[(4*i)+16].position.x += 130 + (40*i)
+}
 
 const groupE1 = new Group
 groupE1.add(particleSystem[13])
 groupE1.add(particleSystem[14])
 groupE1.add(particleSystem[15])
 groupE1.add(particleSystem[16])
-
-particleSystem[17].position.x += 160
-particleSystem[18].position.y += 20
-particleSystem[18].position.x += 170
-particleSystem[19].position.y += -20
-particleSystem[19].position.x += 170
-particleSystem[20].position.x += 170
 
 const groupE2 = new Group
 groupE2.add(particleSystem[17])
@@ -263,4 +281,10 @@ particleSlider.addEventListener('input', function () {
   }
 });
 
-
+function changetexture(start, end, newtexture)
+{
+  for(let i = start; i < end; i++)
+  {
+    particleMaterial[i].map = newtexture
+  }
+}
