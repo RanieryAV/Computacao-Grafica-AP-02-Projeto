@@ -1,3 +1,6 @@
+const particleSlider = document.getElementById('particleSlider');
+const particleCountDisplay = document.getElementById('particleCount');
+
 // ------------------------------------------ Importação ------------------------------------------ //
 
 import { Group } from 'three';
@@ -191,19 +194,16 @@ animate();
 
 // -------------------------------------------- Funções -------------------------------------------- //
 
-function randomparticles(count, incrementx, incrementy, incrementz)
-{
-  // Cria as particulas em posições aleatórias e as manda para a geometria determinada
-  const Pgeometry = new THREE.Geometry()
-  for (let i = 0; i < count; i++) 
-  {
-    const x = (Math.random() - 0.5) * incrementx; 
-    const y = (Math.random() - 0.5) * incrementy;  
-    const z = (Math.random() - 0.5) * incrementz;  
-    const particle = new THREE.Vector3(x, y, z);
-    Pgeometry.vertices.push(particle);
+function randomparticles(count, incrementx, incrementy, incrementz) {
+  const Pgeometry = new THREE.Geometry();
+  for (let i = 0; i < count; i++) {
+      const x = (Math.random() - 0.5) * incrementx;
+      const y = (Math.random() - 0.5) * incrementy;
+      const z = (Math.random() - 0.5) * incrementz;
+      const particle = new THREE.Vector3(x, y, z);
+      Pgeometry.vertices.push(particle);
   }
-  return Pgeometry
+  return Pgeometry;
 }
 
 
@@ -250,5 +250,17 @@ function animateletterformation(particles, particleSystem, p, X, Y, Z, V)
   });
   particleSystem.geometry.verticesNeedUpdate = true;
 }
+
+//Slider
+particleSlider.addEventListener('input', function () {
+  const newParticleCount = parseInt(particleSlider.value);
+  particleCountDisplay.textContent = newParticleCount;
+
+  // Atualize o número de partículas
+  for (let i = 0; i < 24; i++) {
+      particles[i] = randomparticles(newParticleCount, 200, 200, 200);
+      particleSystem[i].geometry = particles[i];
+  }
+});
 
 
