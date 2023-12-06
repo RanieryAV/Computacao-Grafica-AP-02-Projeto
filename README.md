@@ -6,12 +6,12 @@ Professor: Dr. Iális Cavalcante de Paula Jr.
 
 ## Integrantes
 
-- Gabriel Vasconcelos Santos 👨‍💻
-- Márcio Bruno Loiola Gomes 👨‍💻
-- Marcos Vinicius Andrade de Sousa 👨‍💻
-- Raniery Alves Vasconcelos 👨‍💻
-- Vinicius Luis Silveira Barbosa 👨‍💻
-- Yann Lucca Miranda Martins Barros 👨‍💻
+- Gabriel Vasconcelos Santos 👨‍💻 - 497688
+- Márcio Bruno Loiola Gomes 👨‍💻- 473740
+- Marcos Vinicius Andrade de Sousa 👨‍💻 - 496788
+- Raniery Alves Vasconcelos 👨‍💻 - 473532
+- Vinicius Luis Silveira Barbosa 👨‍💻 - 539250
+- Yann Lucca Miranda Martins Barros 👨‍💻- 497746
 
 ## Contexto
 
@@ -43,7 +43,7 @@ Este projeto foi desenvolvido para a disciplina de Computação Gráfica do curs
 
 ## Vídeo do Projeto
 
-[![Vídeo do Projeto: ](https://youtu.be/usPt0v-jgAo)](https://youtu.be/usPt0v-jgAo)
+[![Vídeo do Projeto](https://youtu.be/usPt0v-jgAo)](https://youtu.be/usPt0v-jgAo)
 
 ## Tecnologias Utilizadas
 
