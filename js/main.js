@@ -288,3 +288,38 @@ function changetexture(start, end, newtexture)
     particleMaterial[i].map = newtexture
   }
 }
+
+function setColor() {
+  // Obtém os valores atuais dos sliders
+  const redValue = parseInt(redSlider.value);
+  const greenValue = parseInt(greenSlider.value);
+  const blueValue = parseInt(blueSlider.value);
+
+  // Mapeia os valores dos sliders para a escala usada pelo Three.js (0-1)
+  const normalizedRed = redValue / 255;
+  const normalizedGreen = greenValue / 255;
+  const normalizedBlue = blueValue / 255;
+
+  // Atualiza a cor das partículas com base nos valores dos sliders
+  for (let i = 0; i < 24; i++) {
+      particleMaterial[i].color.setRGB(normalizedRed, normalizedGreen, normalizedBlue);
+  }
+}
+
+const redSlider = document.getElementById('redSlider');
+redSlider.addEventListener('input', function () {
+    const redValue = parseInt(redSlider.value);
+    setColor(redValue, 'red');
+});
+
+const greenSlider = document.getElementById('greenSlider');
+greenSlider.addEventListener('input', function () {
+    const greenValue = parseInt(greenSlider.value);
+    setColor(greenValue, 'green');
+});
+
+const blueSlider = document.getElementById('blueSlider');
+blueSlider.addEventListener('input', function () {
+    const blueValue = parseInt(blueSlider.value);
+    setColor(blueValue, 'blue');
+});
