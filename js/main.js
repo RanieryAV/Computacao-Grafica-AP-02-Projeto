@@ -153,7 +153,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // ------------------------------------ Animação ------------------------------------ //
 
-const velocityofpart = 0.1;
+const velocityofpart = 0.5;
 function animate() {
   requestAnimationFrame(animate);
 

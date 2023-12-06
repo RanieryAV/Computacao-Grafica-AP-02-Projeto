@@ -43,7 +43,7 @@ Este projeto foi desenvolvido para a disciplina de Computação Gráfica do curs
 
 ## Vídeo do Projeto
 
-[Link para o vídeo]
+[![Vídeo do Projeto: ](https://youtu.be/usPt0v-jgAo)](https://youtu.be/usPt0v-jgAo)
 
 ## Tecnologias Utilizadas
 
