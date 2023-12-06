@@ -7,7 +7,7 @@ body {
 }
 
 input[type="range"] {
-  width: 400px;
+  width: 300px;
   height: 20px;
   background-color: #333;
   -webkit-appearance: none;
@@ -52,6 +52,18 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 50px;
+  height: 160px;
   margin-left: 20px;
+}
+
+#RED{
+  color: red;
+}
+
+#GREEN{
+  color: green;
+}
+
+#BLUE{
+  color: blue;
 }
